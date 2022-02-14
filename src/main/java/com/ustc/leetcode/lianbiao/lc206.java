@@ -2,6 +2,7 @@ package com.ustc.leetcode.lianbiao;
 
 import com.ustc.leetcode.utils.ListNode;
 import com.ustc.leetcode.utils.ListNodeUtils;
+import org.slf4j.ILoggerFactory;
 
 /**
  * 反转链表
@@ -37,41 +38,44 @@ class Solution1 {
     }
 }
 
-//class Solution2 {
-//    /**
-//     * 递归法
-//     * @param head
-//     * @return
-//     */
-//    public ListNode reverseList(ListNode head) {
-//        return reverse(head);
-//    }
-//
-//    public ListNode reverse(ListNode head){
-//        if(head.next == null){
-//            return head;
-//        }
-//        ListNode pre = reverse(head.next);
-//        return pre;
-//    }
-//}
-//
-//class Solution3 {
-//    /**
-//     * 递归法
-//     * @param head
-//     * @return
-//     */
-//    public ListNode reverseList(ListNode head) {
-//        return reverse(null,head);
-//    }
-//
-//    public ListNode reverse(ListNode pre,ListNode head){
-//        if(head == null){
-//            return pre;
-//        }
-//        ListNode node = reverse(head,head.next);
-//        node.next = pre;
-//        return
-//    }
-//}
+class Solution2 {
+    /**
+     * 递归法
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        return reverse(head);
+    }
+
+    public ListNode reverse(ListNode cur){
+        //此时的cur和方法3中的pre相似
+        if(cur == null || cur.next == null){
+            return cur;
+        }
+        ListNode node = reverse(cur.next);
+        cur.next.next = cur;
+        cur.next = null;
+        return node;
+    }
+}
+
+class Solution3 {
+    /**
+     * 递归法
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        return reverse(null,head);
+    }
+
+    public ListNode reverse(ListNode pre,ListNode cur){
+        if(cur == null){
+            return pre;
+        }
+        ListNode node = reverse(cur,cur.next);
+        cur.next = pre;
+        return node;
+    }
+}
